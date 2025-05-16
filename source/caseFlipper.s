@@ -8,7 +8,7 @@ stdin = 0
 stdout = 1
 lowermask = 0x20    # mask to lowercase an ASCII character
 uppermask = 0xDF    # mask to uppercase an ASCII character
-togglemask = 0x20   # mask to toggle the size an ASCII character
+togglemask = 0x20   # mask to toggle the size of an ASCII character
 LF = 10
 
 .data
