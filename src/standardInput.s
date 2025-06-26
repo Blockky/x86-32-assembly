@@ -4,7 +4,7 @@
  */
 
 .data
-    prompt: .ascii "Write a string (max 20 characters):\n"
+    prompt: .ascii "Enter a string (up to 20 characters):\n"
     prompt_len = . - prompt
 
     buffer_size = 21               # 20 characters + 1 for newline character
@@ -30,7 +30,7 @@ _start:
     # Store number of bytes read in %edx
     movl %eax, %edx
 
-    # Echo the input back to stdout
+    # Print the input back to the screen
     movl $syswrite, %eax
     movl $stdout,   %ebx
     movl $buffer,   %ecx

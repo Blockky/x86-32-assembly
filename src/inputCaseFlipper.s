@@ -4,7 +4,7 @@
  */
 
 .data
-    prompt: .ascii "Enter a string without numbers or symbols (max 20 characters):\n"
+    prompt: .ascii "Enter a string without numbers or symbols (up to 20 characters):\n"
     prompt_len = . - prompt
 
     buffer_size = 21                    # 20 characters + 1 for newline character
@@ -31,7 +31,7 @@ _start:
     int $syscall
 
     # Store number of bytes read
-    movl %eax,  %edx        # %edx will not be used later, could be omitted
+    movl %eax,  %edx        # %edx will be used later
     movl %eax,  %ecx        # use %ecx as loop counter
     decl %ecx               # exclude the newline character
     movl $0,    %esi        # index = 0
@@ -53,15 +53,17 @@ switchcase:
     movb %al, togglestring(%esi)
 
     incl %esi
-    loop flipcase
+    loop switchcase
 
     # Append newline characters to the end of each output string
-    movb $0xA, lowercasestr(%esi)
+    movb $0xA, lowerstring(%esi)
     movb $0xA, upperstring(%esi)
     movb $0xA, togglestring(%esi)
 
-    # Print lowercase string
+    # Print the processed strings (%edx has the length)
     movl $stdout,       %ebx
+
+    # Print lowercase string
     movl $syswrite,     %eax
     movl $lowerstring,  %ecx
     int $syscall
