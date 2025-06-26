@@ -1,0 +1,20 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Assemble and link",
+            "type": "shell",
+            "command": "sh",
+            "args": [
+                "-c",
+                "mkdir -p bin build && as -g --32 ${file} -o build/${fileBasenameNoExtension}.o && ld -melf_i386 build/${fileBasenameNoExtension}.o -o bin/${fileBasenameNoExtension}"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [],
+            "detail": "Assmble and link the program."
+        }
+    ]
+}

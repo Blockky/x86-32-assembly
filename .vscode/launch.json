@@ -1,0 +1,125 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "GDB ASM",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceRoot}/bin/${fileBasenameNoExtension}",
+            "cwd": "${workspaceRoot}",
+            "MIMode": "gdb",
+            "args": [
+                "${input:arguments1}", 
+                "${input:arguments2}",
+                "${input:arguments3}", 
+                "${input:arguments4}",
+                "${input:arguments5}", 
+                "${input:arguments6}",
+                "${input:arguments7}", 
+                "${input:arguments8}",
+                "${input:arguments9}", 
+                "${input:arguments10}",
+                "${input:arguments11}", 
+                "${input:arguments12}",
+                "${input:arguments13}", 
+                "${input:arguments14}",
+                "${input:arguments15}", 
+                "${input:arguments16}",
+            ],
+            "setupCommands": [
+                {
+                    "text": "set output-radix 10"
+                },
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "externalConsole": false,
+            "preLaunchTask": "Assemble and link"
+        }
+    ],
+    "inputs": [
+        {
+            "id": "arguments1",
+            "type": "promptString",
+            "description": "First Argument"
+        },
+        {
+            "id": "arguments2",
+            "type": "promptString",
+            "description": "Second Argument"
+        },
+        {
+            "id": "arguments3",
+            "type": "promptString",
+            "description": "Third Argument"
+        },
+        {
+            "id": "arguments4",
+            "type": "promptString",
+            "description": "Fourth Argument"
+        },
+        {
+            "id": "arguments5",
+            "type": "promptString",
+            "description": "Fifth Argument"
+        },
+        {
+            "id": "arguments6",
+            "type": "promptString",
+            "description": "Sixth Argument"
+        },
+        {
+            "id": "arguments7",
+            "type": "promptString",
+            "description": "Seventh Argument"
+        },
+        {
+            "id": "arguments8",
+            "type": "promptString",
+            "description": "Eighth Argument"
+        },
+        {
+            "id": "arguments9",
+            "type": "promptString",
+            "description": "Ninth Argument"
+        },
+        {
+            "id": "arguments10",
+            "type": "promptString",
+            "description": "Tenth Argument"
+        },
+        {
+            "id": "arguments11",
+            "type": "promptString",
+            "description": "Eleventh Argument"
+        },
+        {
+            "id": "arguments12",
+            "type": "promptString",
+            "description": "Twelfth Argument"
+        },
+        {
+            "id": "arguments13",
+            "type": "promptString",
+            "description": "Thirteenth Argument"
+        },
+        {
+            "id": "arguments14",
+            "type": "promptString",
+            "description": "Fourteenth Argument"
+        },
+        {
+            "id": "arguments15",
+            "type": "promptString",
+            "description": "Fifteenth Argument"
+        },
+        {
+            "id": "arguments16",
+            "type": "promptString",
+            "description": "Sixteenth Argument"
+        }
+    ]
+}
