@@ -1,6 +1,6 @@
 /*
  * Author: Blocky [https://github.com/Blockky]
- * Session 2, Exercise 2
+ * Session 3, Exercise 1
  */
 
 .data
@@ -56,7 +56,7 @@ switchcase:
     loop flipcase
 
     # Append newline characters to the end of each output string
-    movb $0xA, lowercasestr(%esi)
+    movb $0xA, lowerstring(%esi)
     movb $0xA, upperstring(%esi)
     movb $0xA, togglestring(%esi)
 
