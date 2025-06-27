@@ -116,10 +116,5 @@
             "type": "promptString",
             "description": "Fifteenth Argument"
         },
-        {
-            "id": "arguments16",
-            "type": "promptString",
-            "description": "Sixteenth Argument"
-        }
     ]
 }
