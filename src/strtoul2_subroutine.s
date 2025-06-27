@@ -1,12 +1,12 @@
 /*
  * Author: Blocky [https://github.com/Blockky]
- * Session 7, Exercise 1
+ * Session 8, Exercise 1
  */
 
 .data
     number: .asciz "A67B"
 
-    prompt: .ascii "Write the base of the number (between 2 and 16):\n"
+    prompt: .ascii "Enter the base of the number (between 2 and 16):\n"
     prompt_len = . - prompt
 
     buffer_size = 3
