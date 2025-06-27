@@ -9,7 +9,7 @@
 
     buffer_size = 21                    # 20 characters + 1 for newline character
     buffer: .space buffer_size          # stores the user input
-    lowerstring: .space buffer_size     # stores lowercase version
+    lower_string: .space buffer_size     # stores lowercase version
 
 .text
 .global _start
@@ -46,18 +46,18 @@ lowercase:
     cmpb $'\n',         %al
     jz print
     orb $lowermask,     %al
-    movb %al, lowerstring(%esi)
+    movb %al, lower_string(%esi)
     incl %esi
     jmp lowercase
 
 print:
     # Append newline character to the end of the output string
-    movb $0xA, lowerstring(%esi)
+    movb $0xA, lower_string(%esi)
 
     # Print lowercase string
     movl $syswrite,     %eax
     movl $stdout,       %ebx
-    movl $lowerstring,  %ecx
+    movl $lower_string, %ecx
     int $syscall
 
     # Empty buffers
@@ -66,7 +66,7 @@ print:
 
 clear:
     movb $0,    buffer(%esi)
-    movb $0,    lowerstring(%esi)
+    movb $0,    lower_string(%esi)
     incl %esi
     loop clear
     jmp _start
