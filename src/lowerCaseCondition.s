@@ -29,27 +29,46 @@ _start:
     int $syscall
 
     # Store number of bytes read in %edx
-    movl %eax, %edx
+    movl %eax,  %edx
 
     # If the input is 'E', exit the program;
     # otherwise, lowercase and print the message and restart the program
     movl $0,    %esi
-    movb buffer(%esi),  %al
-    cmpb $'E',  %al
-    jne continue
+    movb buffer,    %al
+    cmpb $'E',      %al
+    jne lowercase
     cmpl $2,    %edx
     je exit
 
-continue:
+lowercase:
+    # Convert to lowercase using OR with 2**5 bit
+    movb buffer(%esi),  %al
+    cmpb $'\n',         %al
+    jz print
+    orb $lowermask,     %al
+    movb %al, lowerstring(%esi)
+    incl %esi
+    jmp lowercase
+
+print:
+    # Append newline character to the end of the output string
+    movb $0xA, lowerstring(%esi)
+
     # Print lowercase string
     movl $syswrite,     %eax
     movl $stdout,       %ebx
-    movl $lowercase,    %ecx
+    movl $lowerstring,  %ecx
     int $syscall
 
     # Empty buffers
-    movl %edx,  %ecx
-    movl %esi
+    movl $buffer_size,  %ecx
+    movl $0,    %esi
+
+clear:
+    movb $0,    buffer(%esi)
+    movb $0,    lowerstring(%esi)
+    incl %esi
+    loop clear
     jmp _start
 
 exit:

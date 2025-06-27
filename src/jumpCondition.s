@@ -29,9 +29,8 @@ _start:
 
     # If the input is 'E', exit the program;
     # otherwise, print the message and restart the program
-    movl $0,    %esi
-    movb buffer(%esi),  %al
-    cmpb $'E',  %al
+    movb buffer,    %al
+    cmpb $'E',      %al
     je exit 
 
     # Print the input back to the screen
