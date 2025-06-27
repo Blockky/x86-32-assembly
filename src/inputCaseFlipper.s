@@ -9,9 +9,9 @@
 
     buffer_size = 21                    # 20 characters + 1 for newline character
     buffer: .space buffer_size          # stores the user input
-    lowerstring: .space buffer_size     # stores lowercase version
-    upperstring: .space buffer_size     # stores uppercase version
-    togglestring: .space buffer_size    # stores toggled-case version
+    lower_string: .space buffer_size     # stores lowercase version
+    upper_string: .space buffer_size     # stores uppercase version
+    toggle_string: .space buffer_size    # stores toggled-case version
 
 .text
 .global _start
@@ -40,42 +40,42 @@ switchcase:
     # Convert to lowercase using OR with 2**5 bit
     movb buffer(%esi),  %al
     orb $lowermask,     %al
-    movb %al, lowerstring(%esi)
+    movb %al, lower_string(%esi)
 
     # Convert to uppercase using AND with 2**5 bit
     movb buffer(%esi),  %al
     andb $uppermask,    %al
-    movb %al, upperstring(%esi)
+    movb %al, upper_string(%esi)
 
     # Toggle case using XOR with 2**5 bit
     movb buffer(%esi),  %al
     xorb $togglemask,   %al
-    movb %al, togglestring(%esi)
+    movb %al, toggle_string(%esi)
 
     incl %esi
     loop switchcase
 
     # Append newline characters to the end of each output string
-    movb $0xA, lowerstring(%esi)
-    movb $0xA, upperstring(%esi)
-    movb $0xA, togglestring(%esi)
+    movb $0xA, lower_string(%esi)
+    movb $0xA, upper_string(%esi)
+    movb $0xA, toggle_string(%esi)
 
     # Print the processed strings (%edx has the length)
     movl $stdout,       %ebx
 
     # Print lowercase string
     movl $syswrite,     %eax
-    movl $lowerstring,  %ecx
+    movl $lower_string, %ecx
     int $syscall
 
     # Print uppercase string
     movl $syswrite,     %eax
-    movl $upperstring,  %ecx
+    movl $upper_string, %ecx
     int $syscall
 
     # Print toggled-case string
-    movl $syswrite,     %eax
-    movl $togglestring, %ecx
+    movl $syswrite,      %eax
+    movl $toggle_string, %ecx
     int $syscall
 
     # Exit program
