@@ -1,8 +1,8 @@
 # x86-32 Assembly
 
-These examples were developed during lab sessions of the course _Estructura y Organización de Computadores_ (Computer Structure and Organization in Spanish).
-
 Source code written in **x86-32 assembly** using **GAS (GNU Assembler) with AT&T syntax**.
+
+These examples were developed during lab sessions of the course _Estructura y Organización de Computadores_ (Computer Structure and Organization in Spanish).
 
 Tested and executed on both **WSL (Windows Subsystem for Linux)** and **Arch Linux** environments.
 
