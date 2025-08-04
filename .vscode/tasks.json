@@ -7,7 +7,7 @@
             "command": "sh",
             "args": [
                 "-c",
-                "mkdir -p bin build && as -g --32 ${file} -o build/${fileBasenameNoExtension}.o && ld -melf_i386 build/${fileBasenameNoExtension}.o -o bin/${fileBasenameNoExtension}"
+                "mkdir -p bin build && as -g --32 \"${file}\" -o build/\"${fileBasenameNoExtension}\".o && ld -melf_i386 build/\"${fileBasenameNoExtension}\".o -o bin/\"${fileBasenameNoExtension}\""
             ],
             "group": {
                 "kind": "build",
