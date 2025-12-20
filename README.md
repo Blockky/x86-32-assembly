@@ -1,12 +1,72 @@
 # x86-32 Assembly
 
-Source code written in **x86-32 assembly** using **GAS (GNU Assembler) with AT&T syntax**.
+This repository contains a collection of exercises and practices, developed during lab sessions of the course _Estructura y Organización de Computadores_ (Computer Structure and Organization in Spanish), written in assembly language using the GNU Assembler (GAS, also known as `as`) and the linker (`ld`). It also makes use of tools like `make` for build automation and `gdb` for debugging.
 
-These examples were developed during lab sessions of the course _Estructura y Organización de Computadores_ (Computer Structure and Organization in Spanish).
+## Requirements
 
-Tested and executed on both **WSL (Windows Subsystem for Linux)** and **Arch Linux** environments.
+To work with these exercises, you need the following tools installed on your system:
+- GCC (GNU Compiler Collection)
+- GAS (GNU Assembler `as`) and LD (GNU Linker `ld`)
+- GDB (GNU Debugger)
+- Make (build automation tool)
 
-The repository also includes a `.vscode` folder with configuration files to assemble, link, and execute the programs using the **Run** button in VS Code (via the [Code Runner](https://marketplace.visualstudio.com/items?itemName=formulahendry.code-runner) extension).  
-It also provides a debugger setup based on **GDB**, fully integrated into the IDE using the [C/C++ Debugger (gdb)](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools) extension.
+### Installing the Requirements
 
-![Debugger](screenshot.png)
+Below are the instructions to install the required tools on the most common GNU/Linux distributions:
+
+#### Ubuntu / Debian
+```bash
+sudo apt update
+sudo apt install build-essential gdb make
+```
+
+#### Fedora
+```bash
+sudo dnf group install "Development Tools"
+sudo dnf install gdb
+```
+
+#### Arch Linux / Manjaro
+```bash
+sudo pacman -Syu base-devel gdb
+```
+
+### Installation for Other Distributions
+Check your distribution's official documentation or use its package manager to install the required tools.
+
+## How to Use This Repository
+
+1. Clone this repository to your computer:
+    ```bash
+    git clone https://github.com/Blockky/x86-32-assembly.git
+    cd your_repository
+    ```
+
+2. Navigate through the practice files:
+    ```bash
+    ls
+    ```
+
+3. Build an example file using `make`:
+    ```bash
+    make example
+    ```
+
+4. Run the generated binary:
+    ```bash
+    ./example
+    ```
+
+5. Debug your code with GDB (optional):
+    ```bash
+    gdb ./example
+    ```
+
+6. Clean up the generated files:
+    ```bash
+    make clean
+    ```
+
+---
+
+Enjoy working with this repository designed to improve your understanding of assembly language.
