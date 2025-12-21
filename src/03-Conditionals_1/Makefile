@@ -1,18 +1,18 @@
 .PHONY: clean
 
-all: read
+all: condition
 
 AS=as
 LINK=ld
 AFLAGS=-g --32
 LFLAGS=-melf_i386
 
-read: read.o
+condition: condition.o
 	@$(LINK) $(LFLAGS) -o $@ $^
 
-read.o: bufferRead.s
+condition.o: exitCondition.s
 	@$(AS) $(AFLAGS) -o $@ $<
 
 clean:
-	@rm -rf *.o read
+	@rm -rf *.o condition
 	

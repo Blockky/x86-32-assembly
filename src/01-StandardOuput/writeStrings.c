@@ -4,10 +4,10 @@
 
 int main(){
     // Data
-    const *msg1 = "Hello World!\n";
+    const char *msg1 = "Hello World!\n";
     int len1 = strlen(msg1);
     
-    const *msg2 = "I'm from the UAH!\n";
+    const char *msg2 = "I'm from the UAH!\n";
     int len2 = strlen(msg2);
 
     // Text-Code

@@ -1,18 +1,18 @@
 .PHONY: clean
 
-all: read
+all: files
 
 AS=as
 LINK=ld
 AFLAGS=-g --32
 LFLAGS=-melf_i386
 
-read: read.o
+files: files.o
 	@$(LINK) $(LFLAGS) -o $@ $^
 
-read.o: bufferRead.s
+files.o: fileManagement.s
 	@$(AS) $(AFLAGS) -o $@ $<
 
 clean:
-	@rm -rf *.o read
+	@rm -rf *.o files
 	

@@ -8,7 +8,7 @@
 
 int main(){
     // Data
-    const *prompt = "Enter a string without numbers or symbols (up to 20 characters):\n";
+    const char *prompt = "Enter a string without numbers or symbols (up to 20 characters):\n";
     int prompt_l = strlen(prompt);
 
     const int buffer_s = 21;

@@ -4,7 +4,7 @@
 
 int main(){
     // Data
-    const *msg = "Hello World!\n";
+    const char *msg = "Hello World!\n";
     int len = strlen(msg);
     
     // Text-Code
