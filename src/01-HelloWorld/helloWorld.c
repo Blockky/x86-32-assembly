@@ -3,9 +3,11 @@
 #include <string.h>
 
 int main(){
-    char *msg = "Hello World!\n";
+    // Data
+    const *msg = "Hello World!\n";
     int len = strlen(msg);
     
+    // Text-Code
     write(STDOUT_FILENO, msg, len);
     exit(EXIT_SUCCESS);
 }

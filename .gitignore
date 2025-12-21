@@ -1,3 +1,6 @@
 *.o
 *.out
-*.elf
+hello
+write
+read
+case

@@ -1,6 +1,6 @@
 /*
  * Author: Blocky [https://github.com/Blockky]
- * Session 1, exercise 2
+ * Session 1, exercise 1
  */
 
 .data

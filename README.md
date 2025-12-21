@@ -17,7 +17,7 @@ Below are the instructions to install the required tools on the most common GNU/
 #### Ubuntu / Debian
 ```bash
 sudo apt update
-sudo apt install build-essential gdb make
+sudo apt install build-essential gdb
 ```
 
 #### Fedora
@@ -29,7 +29,7 @@ sudo dnf install gdb
 
 #### Arch Linux / Manjaro
 ```bash
-sudo pacman -Syu binutils make gdb
+sudo pacman -Syu base-devel gdb
 ```
 
 ### Installation for Other Distributions

@@ -1,18 +1,18 @@
 .PHONY: clean
 
-all: read
+all: write
 
 AS=as
 LINK=ld
 AFLAGS=-g --32
 LFLAGS=-melf_i386
 
-input: read.o
+write: write.o
 	@$(LINK) $(LFLAGS) -o $@ $^
 
-read.o: bufferRead.s
+write.o: writeStrings.s
 	@$(AS) $(AFLAGS) -o $@ $<
 
 clean:
-	@rm -rf *.o read
+	@rm -rf *.o write
 	
