@@ -22,13 +22,14 @@ sudo apt install build-essential gdb make
 
 #### Fedora
 ```bash
+sudo dnf update
 sudo dnf group install "Development Tools"
 sudo dnf install gdb
 ```
 
 #### Arch Linux / Manjaro
 ```bash
-sudo pacman -Syu base-devel gdb
+sudo pacman -Syu binutils make gdb
 ```
 
 ### Installation for Other Distributions
@@ -39,12 +40,14 @@ Check your distribution's official documentation or use its package manager to i
 1. Clone this repository to your computer:
     ```bash
     git clone https://github.com/Blockky/x86-32-assembly.git
-    cd your_repository
+    cd x86-32-assembly
     ```
 
 2. Navigate through the practice files:
     ```bash
+    cd src
     ls
+    cd practice-name
     ```
 
 3. Build an example file using `make`:
