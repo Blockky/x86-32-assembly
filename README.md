@@ -1,4 +1,4 @@
-# x86-32 Assembly
+# x86-32-assembly
 
 This repository contains a collection of exercises and practices, developed during lab sessions of the course _Estructura y Organización de Computadores_ (Computer Structure and Organization in Spanish), written in assembly language using the GNU Assembler (GAS, also known as `as`) and the linker (`ld`). It also makes use of tools like `make` for build automation and `gdb` for debugging.
 
