@@ -52,7 +52,7 @@ Check your distribution's official documentation or use its package manager to i
 
 3. Build an example file using `make`:
     ```bash
-    make example
+    make
     ```
 
 4. Run the generated binary:
