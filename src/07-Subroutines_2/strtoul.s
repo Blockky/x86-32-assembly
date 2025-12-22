@@ -14,12 +14,20 @@ _start:
     pushl %ebx      # char* number
     call strtoul
     
-    addl $4,    %esp
+    addl $4,  %esp
 
-    # Exit program
-    movl $sysexit,  %eax
-    movl $success,  %ebx
-    int $syscall
+    cmpl $-1, %eax
+    jz exit_failure
+
+    movl $SUCCESS, %ebx
+    jmp _exit
+
+exit_failure:
+    movl $FAILURE, %ebx
+    
+_exit:
+    movl $EXIT,    %eax
+    int $0x80
 
 #---------------------------------------------
 # int strtoul(char*)
@@ -53,7 +61,7 @@ encode:
     jb encode_error
 
     # Encode the number
-    andl $encodermask,  %ecx
+    andl $ENCODERMASK,  %ecx
     mull %edi
     jc encode_error
     addl %ecx,  %eax
@@ -72,8 +80,8 @@ exit_strtoul:
     leave
     ret
 
-/* Constants */
-sysexit     = 1
-syscall     = 0x80
-success     = 0
-encodermask = 0x0F
+# CONSTANTS
+EXIT = 1
+SUCCESS = 0
+FAILURE = -1
+ENCODERMASK = 0x0F

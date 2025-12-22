@@ -7,10 +7,10 @@
     number: .asciz "A67B"
 
     prompt: .ascii "Enter the base of the number (between 2 and 16):\n"
-    prompt_len = . - prompt
+    prompt_l = . - prompt
 
-    buffer_size = 3
-    buffer: .space buffer_size
+    buffer_s = 3
+    buffer: .space buffer_s
 
     letter_code = 'A' - 10
 
@@ -18,18 +18,18 @@
 .global _start
 _start:
     # Print the prompt
-    movl $syswrite,     %eax
-    movl $stdout,       %ebx
-    movl $prompt,       %ecx
-    movl $prompt_len,   %edx
-    int $syscall
+    movl $WRITE,    %eax
+    movl $STDOUT,   %ebx
+    movl $prompt,   %ecx
+    movl $prompt_l, %edx
+    int $0x80
 
     # Read input from user
-    movl $sysread,      %eax
-    movl $stdin,        %ebx
-    movl $buffer,       %ecx
-    movl $buffer_size,  %edx
-    int $syscall
+    movl $READ,     %eax
+    movl $STDIN,    %ebx
+    movl $buffer,   %ecx
+    movl $buffer_s, %edx
+    int $0x80
 
     movl $buffer,  %ebx
     movl $10,      %eax
@@ -46,12 +46,20 @@ _start:
     pushl %eax      # int base
     call strtoul2
 
-    addl $(2*4),    %esp
+    addl $(2*4), %esp
 
-    # Exit program
-    movl $sysexit,  %eax
-    movl $success,  %ebx
-    int $syscall
+    cmpl $-1,    %eax
+    jz exit_failure
+
+    movl $SUCCESS, %ebx
+    jmp _exit
+
+exit_failure:
+    movl $FAILURE, %ebx
+    
+_exit:
+    movl $EXIT, %eax
+    int $0x80
 
 #----------------------------------------------------------------
 # int strtoul2(char*, int)
@@ -73,9 +81,9 @@ strtoul2:
     movl 8(%ebp),   %edi    # int base
     movl 12(%ebp),  %ebx    # char* number
 
-    movl $0,        %eax
-    movl $0,        %esi
-    movl $0,        %edx
+    xorl %eax, %eax
+    xorl %esi, %esi
+    xorl %edx, %edx
 
     # Check if the base is between 2 and 16
     cmpl $16,   %edi
@@ -104,7 +112,7 @@ check_number:
     jae encode_error2
 
     # Encode the number
-    andl $encodermask,  %ecx
+    andl $ENCODERMASK, %ecx
     mull %edi
     jc encode_error2
     addl %ecx,      %eax
@@ -145,12 +153,12 @@ exit_strtoul2:
     leave
     ret
 
-/* Constants */
-sysexit     = 1
-syscall     = 0x80
-success     = 0
-encodermask = 0x0F
-syswrite    = 4
-sysread     = 3
-stdout      = 1
-stdin       = 0
+# CONSTANTS
+EXIT = 1
+WRITE = 4
+READ = 3
+STDIN = 0
+STDOUT = 1
+SUCCESS = 0
+FAILURE = -1
+ENCODERMASK = 0x0F

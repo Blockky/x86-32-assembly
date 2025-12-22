@@ -17,8 +17,8 @@
 .global _start
 _start:
     # Caller (calls the subroutine addition)
-    pushl $32           # 2nd argument
-    pushl $128          # 1st argument
+    pushl $999999999          # 2nd argument
+    pushl $2147483640         # 1st argument
     call addition
 
     # Save the result and clear the arguments
@@ -41,6 +41,7 @@ positive_case:
     movl $positive_len, %edx
     int $0x80
     
+    movl $SUCCESS, %ebx
     jmp _exit
 
 negative_case:
@@ -51,6 +52,7 @@ negative_case:
     movl $negative_len, %edx
     int $0x80
 
+    movl $SUCCESS, %ebx
     jmp _exit
 
 overflow_case:
@@ -61,9 +63,10 @@ overflow_case:
     movl $overflow_len, %edx
     int $0x80
 
+    movl $FAILURE, %ebx
+
 _exit:
     movl $EXIT,    %eax
-    movl $SUCCESS, %ebx
     int $0x80
 
 #-------------------------------------------------------------
@@ -96,3 +99,4 @@ WRITE = 4
 EXIT = 1
 STDOUT = 1
 SUCCESS = 0
+FAILURE = -1
