@@ -38,7 +38,7 @@ _start:
     cmpb $'E',   %al
     jne lowercase
     cmpl $2,     %edx
-    je exit
+    je _exit
 
 lowercase:
     # Convert to lowercase using OR with 2**5 bit
@@ -71,7 +71,7 @@ clear:
     loop clear
     jmp _start
 
-exit:
+_exit:
     movl $EXIT,    %eax
     movl $SUCCESS, %ebx
     int $0x80

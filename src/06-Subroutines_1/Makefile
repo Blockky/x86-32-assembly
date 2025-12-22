@@ -1,18 +1,18 @@
 .PHONY: clean
 
-all: files
+all: addition
 
 AS=as
 LINK=ld
 AFLAGS=-g --32
 LFLAGS=-melf_i386
 
-files: files.o
+addition: addition.o
 	@$(LINK) $(LFLAGS) -o $@ $^
 
-files.o: fileManagement.s
+addition.o: firstSubroutine.s
 	@$(AS) $(AFLAGS) -o $@ $<
 
 clean:
-	@rm -rf *.o files personal.txt
+	@rm -rf *.o addition
 	

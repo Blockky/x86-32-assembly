@@ -1,18 +1,18 @@
 .PHONY: clean
 
-all: files
+all: arguments
 
 AS=as
 LINK=ld
 AFLAGS=-g --32
 LFLAGS=-melf_i386
 
-files: files.o
+arguments: arguments.o
 	@$(LINK) $(LFLAGS) -o $@ $^
 
-files.o: fileManagement.s
+arguments.o: stackArguments.s
 	@$(AS) $(AFLAGS) -o $@ $<
 
 clean:
-	@rm -rf *.o files personal.txt
+	@rm -rf *.o arguments
 	

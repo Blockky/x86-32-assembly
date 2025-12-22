@@ -35,37 +35,36 @@ _start:
 
 positive_case:
     # Print positive_msg
-    movl $syswrite,     %eax
-    movl $stdout,       %ebx
+    movl $WRITE,        %eax
+    movl $STDOUT,       %ebx
     movl $positive_msg, %ecx
     movl $positive_len, %edx
-    int $syscall
+    int $0x80
     
-    jmp exit
+    jmp _exit
 
 negative_case:
     # Print negative_msg
-    movl $syswrite,     %eax
-    movl $stdout,       %ebx
+    movl $WRITE,        %eax
+    movl $STDOUT,       %ebx
     movl $negative_msg, %ecx
     movl $negative_len, %edx
-    int $syscall
+    int $0x80
 
-    jmp exit
+    jmp _exit
 
 overflow_case:
     # Print overflow_msg
-    movl $syswrite,     %eax
-    movl $stdout,       %ebx
+    movl $WRITE,        %eax
+    movl $STDOUT,       %ebx
     movl $overflow_msg, %ecx
     movl $overflow_len, %edx
-    int $syscall
+    int $0x80
 
-exit:
-    # Exit program
-    movl $sysexit,  %eax
-    movl $success,  %ebx
-    int $syscall
+_exit:
+    movl $EXIT,    %eax
+    movl $SUCCESS, %ebx
+    int $0x80
 
 #-------------------------------------------------------------
 # int addition(int, int)
@@ -92,9 +91,8 @@ exit_addition:
     leave
     ret
 
-/* Constants */
-syswrite = 4
-sysexit  = 1
-syscall  = 0x80
-stdout   = 1
-success  = 0
+# CONSTANTS
+WRITE = 4
+EXIT = 1
+STDOUT = 1
+SUCCESS = 0

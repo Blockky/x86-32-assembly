@@ -7,7 +7,6 @@
 #define TOGGLEMASK 0x20
 
 int main(){
-    // Data
     const char *prompt = "Enter a string without numbers or symbols (up to 20 characters):\n";
     int prompt_l = strlen(prompt);
 
@@ -17,14 +16,13 @@ int main(){
     char upper_str[buffer_s];
     char toggle_str[buffer_s];
 
-    // Text-Code
     write(STDOUT_FILENO, prompt, prompt_l);
     int len = read(STDIN_FILENO, buffer, buffer_s);
 
     int count = len - 1;
     int i = 0;
 
-    while (i<count){
+    while (i < count){
         lower_str[i] = buffer[i] | LOWERMASK;
         upper_str[i] = buffer[i] & UPPERMASK;
         toggle_str[i] = buffer[i] ^ TOGGLEMASK;

@@ -100,7 +100,7 @@ final:
     movl $0,    %esi
     movb buf_end_char(%esi), %al
     cmpb $'E',  %al
-    je exit
+    je _exit
     movl $buffer_s,  %ecx
     cmpb $'\n',      %al
     je continue
@@ -113,7 +113,7 @@ continue:
     loop continue
     jmp beginning
     
-exit:
+_exit:
     # Close file personal.txt
     movl $CLOSE, %eax
     movl %edi,   %ebx

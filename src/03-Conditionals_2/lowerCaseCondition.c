@@ -5,7 +5,6 @@
 #define LOWERMASK 0x20
 
 int main(){
-    // Data
     const char *prompt = "Enter a string (up to 20 characters) [E for Exit]:\n";
     int prompt_l = strlen(prompt);
 
@@ -13,7 +12,6 @@ int main(){
     char buffer[buffer_s];
     char lower_str[buffer_s];
 
-    // Text-Code
     int len, i;
     while(1){
         write(STDOUT_FILENO, prompt, prompt_l);
@@ -28,13 +26,10 @@ int main(){
             }
             lower_str[i] = '\n';
             write(STDOUT_FILENO, lower_str, len);
-            i = 0;
-            while (i<buffer_s){
+            for(i = 0; i < buffer_s; i++){
                 buffer[i] = 0;
                 lower_str[i] = 0;
-                i++;
             }
         }
     }
-    exit(EXIT_SUCCESS);
 }

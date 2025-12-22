@@ -31,7 +31,7 @@ _start:
     # otherwise, print the message and restart the program
     movb buffer,    %al
     cmpb $'E',      %al
-    je exit 
+    je _exit 
 
     # Print the input back to the standard output
     movl $WRITE,    %eax
@@ -42,7 +42,7 @@ _start:
 
     jmp _start
 
-exit:
+_exit:
     movl $EXIT,    %eax
     movl $SUCCESS, %ebx
     int $0x80
