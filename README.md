@@ -72,4 +72,4 @@ Check your distribution's official documentation or use its package manager to i
 
 ---
 
-Enjoy working with this repository designed to improve your understanding of assembly language.
+Enjoy working with this repository designed to improve your understanding of assembly language ^-^
