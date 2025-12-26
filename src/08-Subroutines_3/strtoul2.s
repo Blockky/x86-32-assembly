@@ -64,7 +64,7 @@ _exit:
 #----------------------------------------------------------------
 # int strtoul2(char*, int)
 # Converts a string in a specific base to an unsigned long int
-# Returns 0xFFFFFFFF in case of error
+# Returns -1 in case of error
 #----------------------------------------------------------------
 .type strtoul2, @function
 .global strtoul2
@@ -78,8 +78,8 @@ strtoul2:
     pushl %edi
     pushl %esi
 
-    movl 8(%ebp),   %edi    # int base
-    movl 12(%ebp),  %ebx    # char* number
+    movl 8(%ebp),  %edi    # int base
+    movl 12(%ebp), %ebx    # char* number
 
     xorl %eax, %eax
     xorl %esi, %esi

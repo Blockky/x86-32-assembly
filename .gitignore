@@ -13,3 +13,6 @@ arguments
 addition
 strtoul
 strtoul2
+ultostr
+cstrings
+cstrings2

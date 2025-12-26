@@ -5,7 +5,7 @@
 
 .data
     prompt: .ascii "Enter a number represented in the base you want between bases 2 and 16:\n"
-    prompt_len = . - prompt
+    prompt_l = . - prompt
 
     msg_bas: .ascii "Specify the base of the written number (between 2 and 16):\n"
     len_bas = . - msg_bas
@@ -13,8 +13,8 @@
     msg_bas_dec: .ascii "Enter the base in which you want to decode the number:\n"
     len_bas_dec = . - msg_bas_dec
 
-    msg_error: .ascii "ERROR: The number is incorrect or an overflow ocurred!\n"
-    len_error = . - msg_error
+    msg_err: .ascii "ERROR: The number is incorrect or an overflow ocurred!\n"
+    len_err = . - msg_err
 
     msg_end: .ascii "Decoded number:\n"
     len_end = . - msg_end
@@ -35,46 +35,46 @@
 .global _start
 _start:
     # Print number prompt
-    movl $syswrite,    %eax
-    movl $stdout,      %ebx
-    movl $prompt,      %ecx
-    movl $prompt_len,  %edx
-    int $syscall
+    movl $WRITE,      %eax
+    movl $STDOUT,     %ebx
+    movl $prompt,     %ecx
+    movl $prompt_len, %edx
+    int $0x80
 
     # Read number input
-    movl $sysread,     %eax
-    movl $stdin,       %ebx
-    movl $num_input,   %ecx
-    movl $size,        %edx
-    int $syscall
+    movl $READ,      %eax
+    movl $STDIN,     %ebx
+    movl $num_input, %ecx
+    movl $size,      %edx
+    int $0x80
 
     # Print base prompt
-    movl $syswrite,    %eax
-    movl $stdout,      %ebx
-    movl $msg_bas,     %ecx
-    movl $len_bas,     %edx
-    int $syscall
+    movl $WRITE,   %eax
+    movl $STDOUT,  %ebx
+    movl $msg_bas, %ecx
+    movl $len_bas, %edx
+    int $0x80
 
     # Read base input
-    movl $sysread,      %eax
-    movl $stdin,        %ebx
+    movl $READ,         %eax
+    movl $STDIN,        %ebx
     movl $base_input,   %ecx
     movl $bufbase_size, %edx
-    int $syscall
+    int $0x80
 
     # Print base to decode prompt
-    movl $syswrite,     %eax
-    movl $stdout,       %ebx
-    movl $msg_bas_dec,  %ecx
-    movl $len_bas_dec,  %edx
-    int $syscall
+    movl $WRITE,       %eax
+    movl $STDOUT,      %ebx
+    movl $msg_bas_dec, %ecx
+    movl $len_bas_dec, %edx
+    int $0x80
 
     # Read base to decode input
-    movl $sysread,      %eax
-    movl $stdin,        %ebx
+    movl $READ,         %eax
+    movl $STDIN,        %ebx
     movl $base_to_dec,  %ecx
     movl $bufbase_size, %edx
-    int $syscall
+    int $0x80
 
     # Encode to binary the base written
     movl $base_input,   %ebx
@@ -120,46 +120,47 @@ _start:
     jz print_error
 
     # Print final message
-    movl $syswrite, %eax
-    movl $stdout,   %ebx
-    movl $msg_end,  %ecx
-    movl $len_end,  %edx
-    int $syscall
+    movl $WRITE,   %eax
+    movl $STDOUT,  %ebx
+    movl $msg_end, %ecx
+    movl $len_end, %edx
+    int $0x80
 
     # Print decoded number
-    movl $syswrite, %eax
-    movl $stdout,   %ebx
-    movl $buffer,   %ecx
-    movl $size,     %edx
-    int $syscall
+    movl $WRITE,  %eax
+    movl $STDOUT, %ebx
+    movl $buffer, %ecx
+    movl $size,   %edx
+    int $0x80
 
     # Print a new line
-    movl $syswrite, %eax
-    movl $stdout,   %ebx
-    movl $newline,  %ecx
-    movl $1,        %edx
-    int $syscall
+    movl $WRITE,   %eax
+    movl $STDOUT,  %ebx
+    movl $newline, %ecx
+    movl $1,       %edx
+    int $0x80
 
-exit:
-    # Exit program
-    movl $sysexit,  %eax
-    movl $success,  %ebx
-    int $syscall
+    movl $SUCCESS, %ebx
+    
+_exit:
+    movl $EXIT, %eax
+    int $0x80
 
 print_error:
     # Print error message
-    movl $syswrite,    %eax
-    movl $stdout,      %ebx
-    movl $msg_error,   %ecx
-    movl $len_error,   %edx
-    int $syscall
+    movl $WRITE,   %eax
+    movl $STDOUT,  %ebx
+    movl $msg_err, %ecx
+    movl $len_err, %edx
+    int $0x80
 
-    jmp exit
+    movl $FAILURE, %ebx
+    jmp _exit
 
 #-----------------------------------------------------------------------
 # char* ultostr(int, char*, int)
 # Converts a unsigned long int in a specific base to a string returned
-# in the given buffer pointer. Returns 0xFFFFFFFF in case of error.
+# in the given buffer pointer. Returns -1 in case of error.
 #-----------------------------------------------------------------------
 .type ultostr, @function
 .global ultostr
@@ -283,34 +284,34 @@ encode2:
 
     # Check if the character is a number or a letter
     movl %edi,        %edx
-    cmpb $'0',         %CL
+    cmpb $'0',        %CL
     jb encode_error2
-    cmpb $'9',         %CL
+    cmpb $'9',        %CL
     ja check_letter
 
 check_number:
-    addb $'0',      %DL
-    cmpb %DL,       %CL
+    addb $'0', %DL
+    cmpb %DL,  %CL
     jae encode_error2
 
     # Encode the number
-    andl $encodermask,  %ecx
+    andl $ENCODERMASK, %ecx
     mull %edi
     jc encode_error2
-    addl %ecx,      %eax
+    addl %ecx, %eax
     jc encode_error2
     incl %esi
     jmp encode2
 
 check_letter:
-    cmpl $9,       %edi
+    cmpl $9,   %edi
     jbe encode_error2
-    cmpb $'A',      %CL
+    cmpb $'A', %CL
     jb encode_error2
-    cmpb $'F',      %CL
+    cmpb $'F', %CL
     ja encode_error2
-    addb $letter_code,      %DL
-    cmpb %DL,       %CL
+    addb $letter_code, %DL
+    cmpb %DL,  %CL
     jae encode_error2
     
     # Encode the letter
@@ -335,12 +336,12 @@ exit_strtoul2:
     leave
     ret
 
-/* Constants */
-sysexit     = 1
-syscall     = 0x80
-success     = 0
-encodermask = 0x0F
-syswrite    = 4
-sysread     = 3
-stdout      = 1
-stdin       = 0
+# CONSTANTS
+EXIT = 1
+WRITE = 4
+READ = 3
+STDIN = 0
+STDOUT = 1
+SUCCESS = 0
+FAILURE = -1
+ENCODERMASK = 0x0F

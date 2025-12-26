@@ -32,7 +32,7 @@ _exit:
 #---------------------------------------------
 # int strtoul(char*)
 # Converts a string to an unsigned long int
-# Returns 0xFFFFFFFF in case of error
+# Returns -1 in case of error
 #---------------------------------------------  
 .type strtoul, @function
 .global strtoul
@@ -61,7 +61,7 @@ encode:
     jb encode_error
 
     # Encode the number
-    andl $ENCODERMASK,  %ecx
+    andl $ENCODERMASK, %ecx
     mull %edi
     jc encode_error
     addl %ecx,  %eax
